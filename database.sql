@@ -37,3 +37,22 @@ CREATE TABLE programs (
     update_at DATE,
     module_id BIGINT REFERENCES modules (id) ON DELETE SET NULL
 );
+
+CREATE TABLE teaching_group (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    slug VARCHAR(255),
+    create_at DATE,
+    update_at DATE
+);
+
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(255),
+    email VARCHAR(255),
+    password_hash VARCHAR(255),
+    teaching_group_link VARCHAR(255),
+    role VARCHAR(255),
+    teaching_group_id BIGINT REFERENCES teaching_group (id),
+    create_at DATE,
+    update_at DATE
+);
