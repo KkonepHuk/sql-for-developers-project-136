@@ -2,8 +2,8 @@ CREATE TABLE courses (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255),
     content VARCHAR(255),
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TABLE lessons (
@@ -13,8 +13,8 @@ CREATE TABLE lessons (
     body VARCHAR(255),
     video_link VARCHAR(255),
     position INTEGER,
-    create_at DATE,
-    update_at DATE,
+    created_at DATE,
+    updated_at DATE,
     course_link VARCHAR(255),
     course_id BIGINT REFERENCES courses (id) ON DELETE SET NULL
 );
@@ -23,8 +23,8 @@ CREATE TABLE modules (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name VARCHAR(255),
     content VARCHAR(255),
-    create_at DATE,
-    update_at DATE,
+    created_at DATE,
+    updated_at DATE,
     course_id BIGINT REFERENCES courses (id) ON DELETE SET NULL
 );
 
@@ -33,16 +33,16 @@ CREATE TABLE programs (
     name VARCHAR(255),
     price VARCHAR(255),
     type VARCHAR(255),
-    create_at DATE,
-    update_at DATE,
+    created_at DATE,
+    updated_at DATE,
     module_id BIGINT REFERENCES modules (id) ON DELETE SET NULL
 );
 
 CREATE TABLE teaching_group (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     slug VARCHAR(255),
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TYPE user_role AS ENUM ('student', 'teacher', 'admin');
@@ -54,8 +54,8 @@ CREATE TABLE users (
     teaching_group_link VARCHAR(255),
     role user_role,
     teaching_group_id BIGINT REFERENCES teaching_group (id) ON DELETE SET NULL,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TYPE subscription_st AS ENUM ('active', 'pending', 'cancelled', 'completed');
@@ -64,8 +64,8 @@ CREATE TABLE enrollments (
     user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
     program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
     subscription_status subscription_st,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TYPE payment_st AS ENUM ('pending', 'paid', 'failed', 'refunded');
@@ -75,8 +75,8 @@ CREATE TABLE payments (
     payment_amount INTEGER,
     payment_status payment_st,
     payment_date DATE,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 
@@ -88,8 +88,8 @@ CREATE TABLE program_completions (
     program_completion_status program_completion_st,
     program_start DATE,
     program_end DATE,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TABLE certificates (
@@ -98,8 +98,8 @@ CREATE TABLE certificates (
     program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
     certificate_url VARCHAR(255),
     release_date DATE,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TABLE quizzes (
@@ -107,8 +107,8 @@ CREATE TABLE quizzes (
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
     quizz_name VARCHAR(255),
     content JSON,
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    update_dat DATE
 );
 
 CREATE TABLE exercises (
@@ -116,8 +116,8 @@ CREATE TABLE exercises (
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
     exercise_name VARCHAR(255),
     exercise_url VARCHAR(255),
-    create_at DATE,
-    update_at DATE
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TABLE discussions (
