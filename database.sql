@@ -123,9 +123,9 @@ CREATE TABLE exercises (
 CREATE TABLE discussions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
-    content JSON,
-    create_at DATE,
-    update_at DATE
+    text JSON,
+    created_at DATE,
+    updated_at DATE
 );
 
 CREATE TYPE blog_st AS ENUM ('created', 'in moderation', 'published', 'archived');
