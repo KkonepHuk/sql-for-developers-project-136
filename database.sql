@@ -108,7 +108,7 @@ CREATE TABLE quizzes (
     name VARCHAR(255),
     content JSON,
     created_at DATE,
-    update_dat DATE
+    updated_dat DATE
 );
 
 CREATE TABLE exercises (
