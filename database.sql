@@ -131,10 +131,10 @@ CREATE TABLE discussions (
 CREATE TYPE blog_st AS ENUM ('created', 'in moderation', 'published', 'archived');
 CREATE TABLE blogs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    student_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
-    blog_name VARCHAR(255),
+    user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
+    name VARCHAR(255),
     content TEXT,
-    blog_status blog_st,
-    create_at DATE,
-    update_at DATE
+    status blog_st,
+    created_at DATE,
+    updated_at DATE
 );
