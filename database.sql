@@ -122,6 +122,7 @@ CREATE TABLE exercises (
 
 CREATE TABLE discussions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
     text JSON,
     created_at DATE,
