@@ -45,14 +45,59 @@ CREATE TABLE teaching_group (
     update_at DATE
 );
 
+CREATE TYPE user_role AS ENUM ('student', 'teacher', 'admin');
 CREATE TABLE users (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(255),
     email VARCHAR(255),
     password_hash VARCHAR(255),
     teaching_group_link VARCHAR(255),
-    role VARCHAR(255),
-    teaching_group_id BIGINT REFERENCES teaching_group (id),
+    role user_role,
+    teaching_group_id BIGINT REFERENCES teaching_group (id) ON DELETE SET NULL,
+    create_at DATE,
+    update_at DATE
+);
+
+CREATE TYPE subscription_st AS ENUM ('active', 'pending', 'cancelled', 'completed');
+CREATE TABLE enrollments (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
+    program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
+    subscription_status subscription_st,
+    create_at DATE,
+    update_at DATE
+);
+
+CREATE TYPE payment_st AS ENUM ('pending', 'paid', 'failed', 'refunded');
+CREATE TABLE payments (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    subscription_id BIGINT REFERENCES enrollments (id) ON DELETE SET NULL,
+    payment_amount INTEGER,
+    payment_status payment_st,
+    payment_date DATE,
+    create_at DATE,
+    update_at DATE
+);
+
+
+CREATE TYPE program_completion_st AS ENUM ('active', 'pending', 'cancelled', 'completed');
+CREATE TABLE program_completions (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
+    program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
+    program_completion_status program_completion_st,
+    program_start DATE,
+    program_end DATE,
+    create_at DATE,
+    update_at DATE
+);
+
+CREATE TABLE certificates (
+    id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
+    program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
+    certificate_url VARCHAR(255),
+    release_date DATE,
     create_at DATE,
     update_at DATE
 );
