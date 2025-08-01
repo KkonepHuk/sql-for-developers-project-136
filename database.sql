@@ -129,7 +129,7 @@ CREATE TABLE discussions (
 );
 
 CREATE TYPE blog_st AS ENUM ('created', 'in moderation', 'published', 'archived');
-CREATE TABLE blog (
+CREATE TABLE blogs (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     student_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
     blog_name VARCHAR(255),
