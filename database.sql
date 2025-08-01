@@ -73,7 +73,7 @@ CREATE TABLE payments (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     subscription_id BIGINT REFERENCES enrollments (id) ON DELETE SET NULL,
     payment_amount INTEGER,
-    payment_status payment_st,
+    status payment_st,
     payment_date DATE,
     created_at DATE,
     updated_at DATE
@@ -85,7 +85,7 @@ CREATE TABLE program_completions (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
     program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
-    program_completion_status program_completion_st,
+    status program_completion_st,
     program_start DATE,
     program_end DATE,
     created_at DATE,
@@ -96,7 +96,7 @@ CREATE TABLE certificates (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id BIGINT REFERENCES users (id) ON DELETE SET NULL,
     program_id BIGINT REFERENCES programs (id) ON DELETE SET NULL,
-    certificate_url VARCHAR(255),
+    url VARCHAR(255),
     release_date DATE,
     created_at DATE,
     updated_at DATE
@@ -105,7 +105,7 @@ CREATE TABLE certificates (
 CREATE TABLE quizzes (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
-    quizz_name VARCHAR(255),
+    name VARCHAR(255),
     content JSON,
     created_at DATE,
     update_dat DATE
@@ -114,8 +114,8 @@ CREATE TABLE quizzes (
 CREATE TABLE exercises (
     id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     lesson_id BIGINT REFERENCES lessons (id) ON DELETE SET NULL,
-    exercise_name VARCHAR(255),
-    exercise_url VARCHAR(255),
+    name VARCHAR(255),
+    url VARCHAR(255),
     created_at DATE,
     updated_at DATE
 );
